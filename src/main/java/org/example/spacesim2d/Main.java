@@ -16,35 +16,34 @@ import java.io.IOException;
 public class Main extends Application {
     private Simulation simulation;
     private GraphicsContext gc;
-    private int width = 800;
-    private int height = 600;
+    private int width = 1400;
+    private int height = 800;
     private double speed = 1;
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("app.fxml"));
-        Pane root = fxmlLoader.load();
-        Scene scene = new Scene(root, width, height);
+        Pane root = new Pane();
+        Canvas canvas = new Canvas(width, height);
+        gc = canvas.getGraphicsContext2D();
+        root.getChildren().add(canvas);
+        Scene scene = new Scene(root);
         stage.setTitle("Space Sim 2D");
         stage.setScene(scene);
         stage.show();
 
-        Canvas canvas = new Canvas(width, height);
-        gc = canvas.getGraphicsContext2D();
-        root.getChildren().add(canvas);
-
         simulation = new Simulation(width, height);
-        initSim();
+        initSim(scene);
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(16), e -> simulation.update(gc, speed)));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
 
-    private void initSim() {
+    private void initSim(Scene scene) {
         simulation.add(new SpaceObject(80, 3, 100, 270, 0, 0));
         simulation.add(new SpaceObject(30, 20, 600, 330, 0, 0));
         simulation.add(new SpaceObject(50, 5, 400, 400, 0, 0));
+        simulation.add(new Ship(5, 100, 400, 300, 0, 0,  0, scene));
         simulation.draw(gc);
     }
 

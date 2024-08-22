@@ -32,6 +32,14 @@ public class SpaceObject {
         this(name, radius, mass, x, y, 0, 0);
     }
 
+    public SpaceObject(double x, double y) {
+        this("Unnamed", 0, 0, x, y, 0, 0);
+    }
+
+    public SpaceObject(String name, double x, double y) {
+        this(name, 0, 0, x, y, 0, 0);
+    }
+
     public SpaceObject(double radius, double mass, double x, double y) {
         this("Unnamed", radius, mass, x, y, 0, 0);
     }

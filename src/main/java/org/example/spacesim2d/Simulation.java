@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Simulation {
     private List<SpaceObject> objects;
-    private double G = 0.01; // 6.67430e-11;
+    private double G = 2.0e-3; // 6.67430e-11;
     private int step;
     private int width;
     private int height;
