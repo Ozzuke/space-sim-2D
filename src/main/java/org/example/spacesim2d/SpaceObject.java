@@ -224,7 +224,7 @@ public class SpaceObject {
         // the color is based on the density of the object
         // density of around 0 - 10 goes from dark green to fully green
         // density of around 10 - 100 goes from fully green to white
-        gc.setFill(Color.rgb((int) Math.min(Math.max(60 * Math.log(getDensity() - 9), 0), 255), (int) Math.min(55 + 20 * getDensity(), 255), (int) Math.min(Math.max(60 * Math.log(getDensity() - 7), 0), 255)));
+        gc.setFill(Color.rgb((int) Math.min(Math.max(60 * Math.log(getDensity() - 9), 0), 255), (int) Math.min(55 + 20 * getDensity(), 255), (int) Math.min(Math.max(60 * Math.log(getDensity() - 7), 10), 255)));
         gc.fillOval(x - radius, y - radius, 2 * radius, 2 * radius);
     }
 }

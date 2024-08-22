@@ -2,6 +2,7 @@ package org.example.spacesim2d;
 
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class Ship extends SpaceObject {
@@ -25,15 +26,15 @@ public class Ship extends SpaceObject {
     public Ship(double radius, double density, double x, double y, double vx, double vy, double orientation, Scene scene) {
         super("player", radius, density, x, y, vx, vy);
         this.orientation = orientation;
-        scene.setOnMouseMoved(e -> updateMouse(e.getX(), e.getY()));
+        scene.setOnMouseMoved(this::updateMouse);
         this.width = scene.getWidth();
         this.height = scene.getHeight();
         this.moveFar = Math.min(width, height) / 2;
     }
 
-    private void updateMouse(double x, double y) {
-        mouseX = x;
-        mouseY = y;
+    void updateMouse(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
         updated = updateRate;
     }
 

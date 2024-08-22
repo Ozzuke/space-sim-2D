@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Simulation {
     private List<SpaceObject> objects;
-    private double G = 2.0e-3; // 6.67430e-11;
+    private double G = 1.0e-2; // 6.67430e-11;
     private int step;
     private int width;
     private int height;
@@ -36,11 +36,10 @@ public class Simulation {
         objects.remove(object);
     }
 
-    public void update(GraphicsContext gc, double speed) {
+    public void update(double speed) {
         move(speed);
         checkCollisions();
         checkCollisionsWithWalls();
-        draw(gc);
     }
 
     public void move(double speed) {
@@ -131,11 +130,32 @@ public class Simulation {
         }
     }
 
-    public void draw(GraphicsContext gc) {
-        // clear canvas
-        gc.clearRect(0, 0, width, height);
-        gc.setFill(Color.BLACK);
-        gc.fillRect(0, 0, width, height);
+    public SpaceObject getObjectAt(double x, double y) {
+        SpaceObject temp = new SpaceObject(x, y);
+        for (SpaceObject object : objects) {
+            double distance = object.getDistanceToObject(temp);
+            if (distance < object.getRadius()) {
+                return object;
+            }
+        }
+        return null;
+    }
+
+    public SpaceObject getObjectClosestTo(double x, double y) {
+        SpaceObject temp = new SpaceObject(x, y);
+        SpaceObject closest = null;
+        double minDistance = Double.MAX_VALUE;
+        for (SpaceObject object : objects) {
+            double distance = object.getDistanceToObject(temp);
+            if (distance - object.getRadius() < minDistance) {
+                minDistance = distance - object.getRadius();
+                closest = object;
+            }
+        }
+        return closest;
+    }
+
+    public void drawSimulationObjects(GraphicsContext gc) {
         objects.forEach(object -> object.draw(gc));
     }
 }

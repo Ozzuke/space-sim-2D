@@ -19,6 +19,7 @@ public class Main extends Application {
     private int width = 1400;
     private int height = 800;
     private double speed = 1;
+    private double playerInGame = 0;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -32,19 +33,18 @@ public class Main extends Application {
         stage.show();
 
         simulation = new Simulation(width, height);
-        initSim(scene);
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(16), e -> simulation.update(gc, speed)));
+        Controller controller = new Controller(scene, simulation, gc);
+        controller.initSim();
+
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(
+                        Duration.millis(16), e -> controller.loop()
+                )
+        );
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-    }
-
-    private void initSim(Scene scene) {
-        simulation.add(new SpaceObject(80, 3, 100, 270, 0, 0));
-        simulation.add(new SpaceObject(30, 20, 600, 330, 0, 0));
-        simulation.add(new SpaceObject(50, 5, 400, 400, 0, 0));
-        simulation.add(new Ship(5, 100, 400, 300, 0, 0,  0, scene));
-        simulation.draw(gc);
     }
 
     public static void main(String[] args) {
