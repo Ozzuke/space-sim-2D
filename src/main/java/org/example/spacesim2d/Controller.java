@@ -94,8 +94,10 @@ public class Controller {
                 SpaceObject mouse = new SpaceObject(mouseX, mouseY);
                 double[] normal = preview.getNormalVectorToObject(mouse);
                 double distance = preview.getDistanceToObject(mouse);
-                preview.setVx(normal[0] * distance * previewVelocityScale);
-                preview.setVy(normal[1] * distance * previewVelocityScale);
+                if (!Double.isNaN(distance) && distance > 0) {
+                    preview.setVx(normal[0] * distance * previewVelocityScale);
+                    preview.setVy(normal[1] * distance * previewVelocityScale);
+                }
                 simulation.add(preview);
             }
         }
