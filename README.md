@@ -2,6 +2,9 @@
 
 Space Sim 2D is a simple 2D space simulation written in Java where you can create celestial objects, control a spaceship, and explore the fundamentals of orbital mechanics and gravitational interactions.
 
+> [!note]
+> Retired as I decided to implement and develop further the same concept in javascript: https://github.com/Ozzuke/spacesim
+
 ## How to Play
 
 1. **Create Objects**: 
